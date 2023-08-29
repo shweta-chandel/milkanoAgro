@@ -3,30 +3,30 @@ const {SMTP_MAIL, SMTP_PASSWORD} = process.env;
 
 const sendMail = async(email, mailSubject, content) =>{
     try{
-        const transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.email',
-            port: 587,
-            secure: false,
-            require: true,
+        var transport = nodemailer.createTransport({
+            host: "sandbox.smtp.mailtrap.io",
+            port: 2525,
             auth: {
-              user: SMTP_MAIL, // generated ethereal user
-              pass: SMTP_PASSWORD // generated ethereal password
+              user: "243fd98bf0a69b",
+              pass: "25b4e7959c58b4"
             }
-    })
+          });
+   
     var mailOptions = {
-        from: 'SMTP_MAIL',
+        from: '243fd98bf0a69b',
         to: email,
         subject: mailSubject,
         html: content
     };
  
-    tranport.sendMail(mailOptions, function(error, info) {
+    transport.sendMail(mailOptions, function(error, info) {
         if (error) {
-            console.log(1)
+            console.log('error',error)
         } else {
             console.log("mail sent successfully", info.response)
         }
     });
+
 }catch (error){
   console.log(error.message)
 }
